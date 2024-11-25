@@ -1,0 +1,98 @@
+from docx import Document
+from docx.shared import Pt
+
+# Re-initialize the document for the update
+doc = Document()
+
+# Add Title
+doc.add_heading('Anforderungsvorlage für eine Power Platform-Anwendung', level=1)
+
+# Sections and Subsections with a placeholder for table insertion
+sections_with_table = [
+    ("1. Einführung", [
+        "1.1 Zweck", "Definieren Sie den Zweck der Anwendung und die Hauptziele.",
+        "1.2 Anwendungsbereich", "Beschreiben Sie, welche Prozesse die Anwendung abdeckt, und definieren Sie ihre Grenzen.",
+        "1.3 Beteiligte Parteien (Stakeholder)", "Liste der relevanten Stakeholder und deren Rollen."
+    ]),
+    ("2. Geschäftsanforderungen", [
+        "2.1 Analyse des aktuellen Zustands", "Beschreiben Sie den bestehenden Prozess, Probleme und Schwachstellen.",
+        "2.2 Gewünschter Zustand", "Definieren Sie, wie der Zielprozess aussehen soll.",
+        "2.3 Geschäftliche Ziele", "Liste der messbaren Ziele, die mit der Anwendung erreicht werden sollen."
+    ]),
+    ("3. Funktionale Anforderungen", [
+        "3.1 Benutzerrollen und Berechtigungen", "Definieren Sie Rollen, ihre Berechtigungen und Verantwortlichkeiten.",
+        "3.2 Hauptfunktionen", "Liste der wichtigsten Funktionen der Anwendung.",
+        "3.3 Integrationsanforderungen", "Beschreiben Sie externe Systeme, mit denen die Anwendung integriert werden soll.",
+        "3.4 Nutzungsfrequenz und Benutzeranzahl", "Beschreiben Sie, wie häufig die Anwendung genutzt wird, und geben Sie die erwartete Benutzeranzahl an.",
+        "3.5 Datenvolumen und Anhänge", "Definieren Sie das erwartete Datenvolumen und ob Anhänge benötigt werden."
+    ]),
+    ("4. Technische Anforderungen", [
+        "4.1 Plattform und Architektur", "Geben Sie an, welche Plattform (z. B. Dataverse for Teams) und Architektur genutzt wird.",
+        "4.2 Datenmanagement", "Tabellenanzahl und Struktur, Beziehungen zwischen Tabellen.",
+        "4.3 Datenschutz und Sicherheit (DSGVO)", "Definieren Sie Maßnahmen zu Datensparsamkeit, Verschlüsselung, Nutzerrechte und Audit-Trails.",
+        "4.4 Performance-Anforderungen", "Maximale Reaktionszeit und Benutzeranzahl definieren.",
+        "4.5 Maximale tolerierte Ausfallzeit", "Definieren Sie die maximale akzeptable Downtime.",
+        "4.6 Skalierbarkeit", "Planen Sie für zukünftige Anforderungen (Benutzerwachstum, Datenvolumen)."
+    ]),
+    ("5. Lizenzierungsanforderungen", [
+        "5.1 Aktuelle Lizenzierung", "Beschreiben Sie, welche Lizenzen für die Nutzung der Lösung erforderlich sind (z. B. Dataverse for Teams).",
+        "5.2 Option für zukünftige Skalierung", "Führen Sie Lizenzanforderungen bei einem Upgrade auf Microsoft Dataverse auf.",
+        "5.3 Kostenübersicht", "Tabelle der Lizenzierungsoptionen und zugehörige Kosten."
+    ]),
+    ("6. Prozessanforderungen", [
+        "6.1 Entwicklungslebenszyklus", "Anforderungsanalyse, Designphase, Entwicklung, Testen und Bereitstellung.",
+        "6.2 Tests und Validierung", "Beschreiben Sie die geplanten Tests, z. B. Benutzertests und Sicherheitstests.",
+        "6.3 Bereitstellungsstrategie", "Definieren Sie, wie die Lösung implementiert wird (phasenweise oder vollständig)."
+    ]),
+    ("7. Risiken und Gegenmaßnahmen", [
+        "Identifizieren Sie mögliche Risiken und Strategien zur Minimierung."
+    ]),
+    ("8. Annahmen und Einschränkungen", [
+        "8.1 Annahmen", "Liste der Annahmen, z. B. verfügbare Ressourcen und Tools.",
+        "8.2 Einschränkungen", "Definieren Sie technische, geschäftliche oder projektbezogene Begrenzungen."
+    ]),
+    ("9. Zusätzliche Anforderungen", [
+        "9.1 Tabellen und Datenstruktur", "Definieren Sie, wie viele Tabellen benötigt werden und welche Felder sie enthalten.",
+        "9.2 Dateianhänge", "Geben Sie die maximal zulässige Dateigröße und Speicherkapazität an.",
+        "9.3 Wartung und Support", "Beschreiben Sie die geplanten Wartungsmaßnahmen und den Supportbedarf."
+    ])
+]
+
+# Add content to the document
+for section_title, subsections in sections_with_table:
+    doc.add_heading(section_title, level=2)
+    for i in range(0, len(subsections), 2):
+        if i + 1 < len(subsections):  # Ensure safe indexing
+            doc.add_heading(subsections[i], level=3)
+            doc.add_paragraph(subsections[i+1])
+
+    # Insert a table in section "5. Lizenzierungsanforderungen"
+    if section_title == "5. Lizenzierungsanforderungen":
+        doc.add_heading("Beispielhafte Kostenübersicht", level=3)
+        table = doc.add_table(rows=1, cols=3)
+        table.style = 'Table Grid'
+
+        # Add header row
+        hdr_cells = table.rows[0].cells
+        hdr_cells[0].text = "Lizenzoption"
+        hdr_cells[1].text = "Kosten (monatlich)"
+        hdr_cells[2].text = "Geeignet für"
+
+        # Add example data
+        data = [
+            ["Dataverse for Teams", "Kostenlos", "Kleine Teams, eingeschränkte Datenmengen"],
+            ["Power Apps Per User Plan", "ca. €16,90/Nutzer", "Größere Teams mit komplexen Anforderungen"],
+            ["Power Apps Per App Plan", "ca. €4,20/Nutzer/App", "Einzelne Anwendungen mit spezifischen Anforderungen"],
+            ["Zusätzlicher Speicher", "ca. €42/GB", "Bei Überschreitung der Speichergrenzen"]
+        ]
+        for row_data in data:
+            row = table.add_row().cells
+            for idx, cell_data in enumerate(row_data):
+                row[idx].text = cell_data
+
+# Save the updated document
+file_path_with_table = "Anforderungsvorlage_Power_Platform_mit_Tabelle.docx"
+doc.save(file_path_with_table)
+
+# Return the file path
+file_path_with_table
