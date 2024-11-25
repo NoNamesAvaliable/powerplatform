@@ -1,0 +1,119 @@
+Anforderungsvorlage für eine Power Platform-Anwendung
+1. Einführung
+1.1 Zweck
+Die Anwendung soll den Prozess der Beantragung und Genehmigung von Urlaub in einem mittelständischen Unternehmen digitalisieren und vereinfachen. Ziel ist es, den Verwaltungsaufwand zu reduzieren und die Transparenz für Mitarbeiter und Manager zu erhöhen.
+
+1.2 Anwendungsbereich
+Die Lösung deckt den gesamten Urlaubsprozess ab, von der Beantragung durch den Mitarbeiter über die Genehmigung durch die Führungskraft bis hin zur Synchronisation mit der Personalabteilung. Sie ersetzt das aktuelle papierbasierte Verfahren vollständig.
+
+1.3 Beteiligte Parteien (Stakeholder)
+
+Mitarbeiter: Stellen Urlaubsanträge.
+Führungskräfte: Genehmigen oder lehnen Anträge ab.
+Personalabteilung: Überwacht den Gesamtprozess und verwaltet Urlaubsdaten.
+2. Geschäftsanforderungen
+2.1 Analyse des aktuellen Zustands
+Der Urlaubsprozess wird derzeit manuell über Papierformulare und E-Mails abgewickelt, was oft zu Verzögerungen, Missverständnissen und mangelnder Übersicht führt.
+
+2.2 Gewünschter Zustand
+Ein digitaler Workflow, bei dem Anträge schnell eingereicht und genehmigt werden können, mit Echtzeit-Übersicht über den Urlaubsstatus aller Mitarbeiter.
+
+2.3 Geschäftliche Ziele
+
+Reduzierung der Bearbeitungszeit von Urlaubsanträgen um 50 %.
+Erhöhung der Transparenz und Nachverfolgbarkeit von Urlaubsanträgen.
+Verbesserung der Mitarbeiterzufriedenheit durch einen modernen, nutzerfreundlichen Prozess.
+3. Funktionale Anforderungen
+3.1 Benutzerrollen und Berechtigungen
+
+Mitarbeiter: Antrag einreichen, Status einsehen.
+Führungskräfte: Anträge genehmigen/ablehnen, Kommentare hinzufügen.
+Personalabteilung: Anträge exportieren, Urlaubskalender verwalten.
+3.2 Hauptfunktionen
+
+Einreichung von Urlaubsanträgen mit automatischer Benachrichtigung an die Führungskraft.
+Genehmigungsworkflow mit E-Mail-Benachrichtigungen.
+Übersichtsseite mit Urlaubskalender und Filteroptionen.
+3.3 Integrationsanforderungen
+Integration mit Outlook-Kalender und Microsoft Teams zur Benachrichtigung.
+
+3.4 Nutzungsfrequenz und Benutzeranzahl
+
+Frequenz: Tägliche Nutzung durch ca. 50 Mitarbeiter und Führungskräfte.
+Benutzeranzahl: Maximal 100 Nutzer.
+3.5 Datenvolumen und Anhänge
+
+Durchschnittlich 10 Anträge pro Tag.
+Keine Anhänge erforderlich.
+4. Technische Anforderungen
+4.1 Plattform und Architektur
+Die Lösung basiert auf Dataverse for Teams, um bestehende Microsoft 365-Tools zu integrieren und Kosten zu minimieren.
+
+4.2 Datenmanagement
+
+Tabellen:
+Mitarbeiter: Name, Abteilung, Rolle.
+Urlaubsanträge: Antragstyp, Datum, Status.
+Urlaubskalender: Übersicht aller Anträge.
+4.3 Datenschutz und Sicherheit (DSGVO)
+
+Zugriff nur für autorisierte Benutzer.
+Verschlüsselung aller Daten.
+Audit-Trail für Änderungen an Anträgen.
+4.4 Performance-Anforderungen
+
+Maximale Reaktionszeit: < 2 Sekunden bei Antragsbearbeitung.
+4.5 Maximale tolerierte Ausfallzeit
+
+Höchstens 1 Stunde.
+4.6 Skalierbarkeit
+
+Möglichkeit zur Erweiterung auf 200 Nutzer.
+5. Lizenzierungsanforderungen
+5.1 Aktuelle Lizenzierung
+Dataverse for Teams (kostenlos im Microsoft Teams-Umfeld).
+
+5.2 Option für zukünftige Skalierung
+Upgrade auf Power Apps Per App Plan (€4,20/Nutzer/Monat) bei erweiterten Anforderungen.
+
+5.3 Kostenübersicht
+
+Lizenzoption	Kosten (monatlich)	Geeignet für
+Dataverse for Teams	Kostenlos	Kleine Teams, eingeschränkte Datenmengen
+Power Apps Per App Plan	€4,20/Nutzer/App	Einzelne Anwendungen mit erweiterten Anforderungen
+Power Apps Per User Plan	€16,90/Nutzer	Größere Teams mit mehreren Anwendungen
+Zusätzlicher Speicher	€42/GB	Bei Überschreitung der Speichergrenzen
+6. Prozessanforderungen
+6.1 Entwicklungslebenszyklus
+
+Anforderungen analysieren.
+Lösung designen und entwickeln.
+Tests (z. B. Benutzertests, Sicherheitstests) durchführen.
+Bereitstellung in Teams-Umgebung.
+6.2 Tests und Validierung
+
+Funktionale Tests: Überprüfung der Hauptfunktionen.
+Benutzerakzeptanztests: Sicherstellen der Nutzerfreundlichkeit.
+6.3 Bereitstellungsstrategie
+Schrittweise Einführung: Pilotgruppe vor vollständiger Implementierung.
+
+7. Risiken und Gegenmaßnahmen
+Risiko: Fehlende Akzeptanz der Benutzer.
+Gegenmaßnahme: Schulungen und Benutzerhandbuch bereitstellen.
+8. Annahmen und Einschränkungen
+8.1 Annahmen
+
+Microsoft Teams ist bereits unternehmensweit implementiert.
+8.2 Einschränkungen
+
+Keine Verwendung externer Cloud-Speicherlösungen.
+9. Zusätzliche Anforderungen
+9.1 Tabellen und Datenstruktur
+Mindestens 3 Tabellen erforderlich (Mitarbeiter, Anträge, Kalender).
+
+9.2 Dateianhänge
+Nicht benötigt.
+
+9.3 Wartung und Support
+Regelmäßige Überprüfung der Funktionalität durch die IT-Abteilung.
+
